@@ -82,8 +82,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'vieasso',
-        'USER': 'eedf_vieasso_user',
-        'PASSWORD': 'motdepassevieasso',
+        'USER': 'dbuser',
+        'PASSWORD': 'userpassword',
         'HOST': 'localhost',
     }
 
