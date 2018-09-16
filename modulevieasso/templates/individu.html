@@ -1,0 +1,97 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+<div class="container">
+
+    <form method="POST" action="{% url 'gestionindividu' %}">
+        {% csrf_token %}
+        <div class="form-group col-md-2">
+
+                {{ form.codeadherent.label_tag }}
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0 ">
+                {{ form.codeadherent }}
+                <div class="input-group-addon"><i class="fas fa-search"></i></div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-2">
+            {{ form.civilite.label_tag }}
+            {{ form.civilite }}
+        </div>
+        <div class="form-group col-md-4">
+            {{ form.nom.label_tag }}
+            {{ form.nom }}
+        </div>
+        <div class="form-group col-md-4">
+            {{ form.prenom.label_tag }}
+            {{ form.prenom }}
+        </div>
+        <div class="form-group col-md-4">
+            {{ form.tel.label_tag }}
+            {{ form.tel }}
+        </div>
+        <div class="form-group col-md-8">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+        <div class="form-group col-md-4">
+            {{ form.codepostal.label_tag }}
+            {{ form.codepostal }}
+        </div>
+        <div class="form-group col-md-8">
+            {{ form.adresse.label_tag }}
+            {{ form.adresse }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form.fonction.label_tag }}
+            {{ form.fonction }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form.sla.label_tag }}
+            {{ form.sla }}
+        </div>
+        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Enregistrer</button>
+        <button type="reset" class="btn btn-primary"><i class="fas fa-recycle"></i> Effacer</button>
+    </form>
+<div id="fonctions">
+
+</div>
+<div id="sla">
+
+</div>
+</div>
+
+{% endblock %}
+{% block js %}
+    <script>
+    $("#id_codeadherent").change(function () {
+        console.log($('#id_codeadherent').val())
+        if($('#id_codeadherent').val().length>3)
+            $.get({% url 'valideradherent' %},
+                    {'codeadherent':$('#id_codeadherent').val()},
+                    function(data){
+                        //console.log(data.nom);
+                        $('#id_nom').val(data.nom);
+                        $('#id_prenom').val(data.prenom);
+                        $('#id_email').val(data.email);
+                        $('#id_codepostal').val(data.codepostal);
+                        $('#id_tel').val(data.tel);
+                        $('#id_adresse').val(data.adresse);
+                        /*$('#id_fonction').toggle();
+                        $('#id_sla').toggle();*/
+                        let listFonctions="<ul>";
+                        data.fonction.forEach(function(value){
+                            listFonctions+='<li>'+value+'</li>';
+                        });
+                        listFonctions+="</ul>";
+                        $('#fonctions').html(listFonctions);
+                        let listsla='<ul>';
+                        data.sla.forEach(function(value){
+                           listsla+="<li>"+value+"</li>";
+                        });
+                        listsla+="</ul>";
+                        $('#sla').html(listsla);
+
+                    });
+    });
+
+    </script>
+{% endblock %}

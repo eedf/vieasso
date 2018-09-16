@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% load static %}
+    <div class="container">
+
+        <h4>Validation des comptes rendus de la région : </h4>
+        <div class="form-group col-md-6">
+            <label for="">Filtrer la liste par :
+                <select name="" id="" class="form-control">
+                    <option value="0" class="disabled">Choisir un element</option>
+                    <option value="1">Les comptes rendus non validés</option>
+                    <option value="2">Les comptes rendus validés</option>
+                </select>
+            </label>
+        </div>
+
+                <table class="table table-bordered table-striped">
+            <thead>
+            <th>#</th>
+            <th>SLA</th>
+            <th>RESLA</th>
+            <th>TRESLA</th>
+            <th>Délégue AG</th>
+            <th>Délégué AG Adjoint</th>
+            <th>Date de l'APL</th>
+            <th>Commentaire</th>
+            <th>Validation</th>
+            </thead>
+            <tbody>
+            {% for e in listcr %}
+            <tr>
+                <td>1</td>
+                <td>{{ e.sla }}</td>
+                <td>{{ e.resla }}</td>
+                <td>{{ e.tresla }}</td>
+                <td>{{ e.delegueag }}</td>
+                <td>{{ e.supdelegeag }}</td>
+                <td>{{ e.datecr }}</td>
+                <td>{{ e.corpscr }}</td>
+                <td>
+                 {% csrf_token %}
+                    {% if not e.valide %}
+                        <button class="btn btn-success" id="valider" onclick="clicked({{ e.id }})"><i class="fas fa-check"></i> Valider</button></td>
+                    {% else %}
+                        <button class="btn btn-success disabled" id="valider" data="{{ e.id }}"><i class="fas fa-check"></i> Valider</button></td>
+                    {% endif %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script type="application/javascript">
+    function clicked(id) {
+        console.log("validation cr id= " +id);
+        var token =  $('input[name="csrfmiddlewaretoken"]').val();
+        $.post("{% url 'validercr' %}",{"csrfmiddlewaretoken":token,"crid":id},function(data){
+            console.log(data)
+            if (data.answer=='validation'){
+                alert("Validation du compte rendu avec succés");
+                document.location.href="{% url 'listcr' %}"
+            }
+        })
+    }
+    </script>
+
+{% endblock %}

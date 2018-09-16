@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <div style="height:30px;"></div>
+        <div class="alert alert-info">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
+            </span>
+            Choisissez le rôle du demandeur et cliquez sur valider
+        </div>
+        <table class="table table-bordered table-sm">
+            <thead class="bg-light">
+                <th>Login</th>
+                <th>Requérant</th>
+                <th>SLA</th>
+                <th>Region</th>
+                <th>Date demande</th>
+                <th>Date réponse</th>
+                <th>Rôle</th>
+                <th>Edition</th>
+            </thead>
+            <tbody>
+            {% for o in list %}
+                <tr>
+                    <td>{{ o.login }}</td>
+                    <td>{{ o.name }}<br>
+                    @ : {{ o.mail }} <br>
+                    <i class="fas fa-mobile-alt"></i> : {{ o.tel }}<br>
+                    <i class="far fa-envelope"></i> : {{ o.adresse }}, {{ o.cp}}</td>
+                    <td>{{ o.sla }}</td>
+                    <td>{{ o.region }}</td>
+                    <td>{{ o.datedemande }}</td>
+                    <td>{% if o.role %}{{ o.role }} le {{ o.datereponse }}{% else %} Demande en cours{% endif %}</td>
+                    <td>
+                            <select class="custom-select" id="role{{ o.id }}">
+                                <option selected value="0">Choisir dans la liste</option>
+                                <option value="REDACTEUR">REDACTEUR</option>
+                                <option value="ADMIN">ADMIN</option>
+                            </select>
+                    </td>
+                    <td>
+                        <button id="btn{{ o.id }}" class="btn btn-success"
+                                onclick="valider({{ o.id }});">
+                            <i class="fa fa-check"></i> Valider
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% csrf_token %}
+
+
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script>
+        function valider(id) {
+            $.post("/validernomination/",
+                {
+                    "csrfmiddlewaretoken": $("input[name='csrfmiddlewaretoken']").val(),
+                    "id": id,
+                    "role": $("#role" + id + " :selected").text(),
+                },
+                function (data) {
+                    if (data.answer == true) {
+                        {#  $("#btn" + id).prop("disabled", true);#}
+                        alert("La nomination a bien été validée");
+                        window.location.href="/listnomination/"
+                    }
+                }
+            );
+            return false;
+        }
+    </script>
+
+{% endblock %}

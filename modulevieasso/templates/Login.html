@@ -1,0 +1,31 @@
+{% extends "layout.html" %} {% block content %} {% load static %}
+<div class="container">
+    <h1>Gestion de la vie associative</h1>
+    <div class="col-md-6">
+        <div class="alert alert-warning">
+            Tu trouveras ton numéro d'adhérent sur ta carte d'adhésion. Le mot de passe est identique à celui du portail
+            <a href="http://entrecles.eedf.fr">Entréclés</a>. Il t'a été communiqué dans le courrier qui accompagne ta carte d'adhésion. Si la personne qui
+            a saisi ton adhésion sur le portail a bien renseigné ton adresse, tu peux également le
+            <a href="http://entrecles.eedf.fr/securite/OubliMotDePasse.aspx">recevoir par email</a>.
+        </div>
+        <form action="/login/" method="post">
+            <div class="form-group">
+                <label for="">Login</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="">Password</label>
+                <input type="text" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check"></i> Connexion
+            </button>
+            <a href="http://entrecles.eedf.fr/securite/OubliMotDePasse.aspx" class="btn btn-default">Mot de passe perdu ?</a>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <img src="" alt="photo scouts" class="img-responsive">
+    </div>
+</div>
+{% endblock %}

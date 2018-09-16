@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+{#  <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/chosen.min.css' %}"/>#}
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'widgEditor_1.0/css/widgEditor.css' %}"/>
+    <script src="{% static 'widgEditor_1.0/scripts/widgEditor.js' %}"></script>
+    <title>Accueil</title>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"></a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"><i class="fas fa-list"></i>
+                        Documentation
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{% url 'documentation' %}">APL</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'documentation' %}">Congrés</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'documentation' %}">Assemblée Générale</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"><i class="fas fa-users"></i> Adhérents
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{% url 'listPresence' %}">Liste Emargements</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'fichestructure' %}">Fiche structures</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'gestionindividu' %}">Fiche adhérents</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'saisieAPL' %}">Compte Rendu APL</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'listcr' %}">Validation des CR APL</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"><i class="fas fa-home"></i> Instance
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/">SLA</a>
+                        </li>
+                        <li>
+                            <a href="/">Equipe régionale</a>
+                        </li>
+                        <li>
+                            <a href="/">Comité directeur</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        {% if user.is_connected %}
+                            Bienvenue {{ user.userName }}
+                        {% endif %}
+                        <i class="fas fa-user"></i>
+                        <!--User informations-->
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a href="/logout/">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Déconnexion
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<div>
+    {% block content %}
+    {% endblock %}
+</div>
+<footer>
+    <div class="bandeau">
+        <div class="logo"></div>
+
+    </div>
+</footer>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/bootstrapjs.js' %}"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"
+        integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.4/jspdf.plugin.autotable.js"></script>
+{#<script src="{% static 'js/chosen.jquery.min.js' %}"></script>#}
+{#<script src="{% static 'js/chosen.proto.min.js' %}"></script>#}
+{% block js %}
+
+{% endblock %}
+
+</body>
+
+</html>

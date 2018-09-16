@@ -1,0 +1,131 @@
+{% extends "layout.html" %} {% block content %} {% load static %}
+
+    <div class="container">
+
+        <div style="height:30px;"></div>
+        <div class="alert alert-info">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
+            </span>
+            Séléctionner un élément du menu ci dessous :
+        </div>
+        <div class="row">
+
+            <div class="col-md-2 text-center">
+                <a href="{% url 'docs' %}">
+                    <img src="{% static '/icons/info_black.svg' %}" alt="info_color.svg" >
+                </a>
+            </div>
+        {% if context.user.nomine %}
+            <div class="col-md-2 text-center">
+                <a href="{% url 'listemargement' %}">
+                    <img src="{% static '/icons/user_black.svg' %}" alt="user_color.svg" >
+                </a>
+            </div>
+
+            <div class="col-md-2 text-center">
+                <a href="{% url 'editcr' %}">
+                    <img src="{% static '/icons/write_black.svg' %}" alt="write_color.svg" >
+                </a>
+            </div>
+
+            <div class="col-md-2 text-center">
+                <a href="{% url 'listcr' %}">
+                    <img src="{% static '/icons/file_black.svg' %}" alt="file_color.svg" >
+                </a>
+            </div>
+        {% endif %}
+            <div class="col-md-2 text-center">
+                <a href="{% url 'nomination' %}">
+                    <img src="{% static '/icons/list_black.svg' %}" alt="list_color.svg" >
+                </a>
+            </div>
+
+            {% if context.user.role == "SUPERADMIN" or context.user.role == "ADMIN"%}
+                <div class="col-md-2 text-center">
+                    <a href="{% url 'listnomination' %}">
+                        <img src="{% static '/icons/admin_black.svg' %}" alt="admin_color.svg" >
+                    </a>
+                </div>
+            {% endif %}
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-2 text-center">
+                <a href="{% url 'docs' %}">
+                    Documentation
+                </a>
+            </div>
+        {% if context.user.nomine %}
+            <div class="col-md-2 text-center">
+                <a href="{% url 'listemargement' %}">
+                    Liste d'émargement
+                </a>
+            </div>
+
+            <div class="col-md-2 text-center">
+                <a href="{% url 'editcr' %}">
+                    Nouveau Compte rendu
+                </a>
+            </div>
+
+            <div class="col-md-2 text-center">
+                <a href="{% url 'listcr' %}">
+                    Mes comptes rendus
+                </a>
+            </div>
+        {% endif %}
+            <div class="col-md-2  text-center">
+                <a href="{% url 'nomination' %}">
+                    Demander une nomination
+                </a>
+            </div>
+
+            {% if context.user.role == "SUPERADMIN" %}
+                <div class="col-md-2 text-center">
+                    <a href="{% url 'listnomination' %}">
+                        Valider les nominations
+                    </a>
+                </div>
+            {% endif %}
+
+        </div>
+    <div style="height:30px;"></div>
+    {% if not context.user.role == "SUPERADMIN"  %}
+        {% if context.user.nomine %}
+            <div class="alert alert-primary">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                </span>
+                Vous avez reçu une nomination pour rédiger votre compte rendu
+                d'apl pour la sla {{ context.user.sla }} région {{ context.user.region }}
+            </div>
+            {% else %}
+            <div class="alert alert-danger">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+                </span>
+                Vous n'avez pas encore reçu de nomination pour rédiger votre compte rendu
+                veuillez effectuer votre demande <a href="/nomination/">ici</a>
+            </div>
+        {% endif %}
+    {% endif %}
+    </div>
+{% endblock %} {% block script %}
+    <script>
+        var old;
+        $(".col-md-2 > a > img").mouseenter(function () {
+            old = this.src;
+            this.src = "{% static '/icons/'%}" + this.alt;
+            this.style="border: solid #666666; border-radius: 5px;";
+        });
+        $(".col-md-2 > a > img").mouseleave(function () {
+            this.src = old;
+            this.style="";
+        });
+    </script>
+{% endblock %}

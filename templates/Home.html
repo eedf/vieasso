@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+<style>
+    html, body {margin: 0; height: 100%; overflow: hidden}
+    .last {
+        z-index: -1;
+        float: left;
+        position: absolute;
+        opacity: 0.5;
+        overflow: hidden;
+    }
+    .vbuffer {
+        height: 100px;
+    }
+</style>
+<img src="{% static 'img/background1.png' %}" alt="background" width="100%" class="last">
+<div class="container-fluid background">
+    <div class="vbuffer"></div>
+    <div class="col-md-2">
+        <div class="card" style="background-color: rgba(255, 255, 255, 0.5);border-radius: 5px">
+            <img class="card-img-top" src="https://image.flaticon.com/icons/svg/265/265695.svg" alt="Documentation">
+            <div class="card-body">
+                <h4 class="card-title">Documentation</h4>
+                <p class="card-text">L'essentiel pour organiser une APL, un Congrés ou une AG</p>
+                <a href="#" class="btn btn-primary">Entrer</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card" style="background-color: rgba(255, 255, 255, 0.5);border-radius: 5px">
+            <img class="card-img-top" src="https://image.flaticon.com/icons/svg/265/265667.svg" alt="Membres">
+            <div class="card-body">
+                <h4 class="card-title">Les membres</h4>
+                <p class="card-text">Editer la liste de présence pour votre APL. </p>
+                <a href="{% url 'listPresence' %}" class="btn btn-primary">Entrer</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card" style="background-color: rgba(255, 255, 255, 0.5);border-radius: 5px">
+            <img class="card-img-top" src="https://image.flaticon.com/icons/svg/972/972280.svg" alt="Comptes rendus">
+            <div class="card-body">
+                <h4 class="card-title">Les Comptes Rendus</h4>
+                <p class="card-text">Envoyer un nouveau compte rendu à la région ou à l'EN</p>
+                <a href="{% url 'saisieAPL' %}" class="btn btn-primary">Entrer</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

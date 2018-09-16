@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Module vie asso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static "/css/style.css" %}"/>
+    {#    <script src="main.js"></script>#}
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" {% if context.user.is_connected %} href="/home/" {% else %}href="/"{% endif %}>
+            <img src="{% static  '/img/logo.png' %}" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" {% if context.user.is_connected %} href="/home/"
+                       {% else %}href="/"{% endif %}><i class="fa fa-list"></i> Menu </a>
+                </li>
+                <span class="sr-only">(current)</span>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if context.user.is_connected %}
+                    <li class="nav-item active">
+                        Bienvenue {{ context.user.name }}
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                        </span>
+                        | <a href="/out/" title="Déconnexion"><i
+                            class="fas fa-sign-out-alt"></i>Déconnexion</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block content %}
+
+{% endblock %}
+
+
+<footer>
+    <div class="logo">
+        <img src="{% static '/img/logoblanc.svg' %}" alt="">
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+{% block script %}
+{% endblock %}
+
+</body>
+
+</html>

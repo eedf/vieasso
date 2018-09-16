@@ -1,0 +1,19 @@
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-image: linear-gradient(to right, #16a0c8, #97be0d);
+    height: 50px;
+}
+
+.logo {
+    margin-left: 50px;
+    width: 50px;
+    background: #22515C;
+    position: relative;
+}
+
+input {
+    text-transform: uppercase;
+}

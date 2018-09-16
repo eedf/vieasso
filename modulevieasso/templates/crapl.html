@@ -1,0 +1,358 @@
+{% extends "layout.html" %} {% block content %} {% load static %}
+
+<form action="/editcr/" method="POST" id="crform">
+{% csrf_token%}
+    <div class="container">
+        <div style="height:30px;"></div>
+        <div class="alert alert-info">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
+            </span>
+            Veuillez renseigner les informations correspondantes aux cases ci dessous</div>
+
+        <h4>Informations d'ordre général</h4>
+        <hr>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="region">Votre région</label>
+                <input name="region" type="text" value="{{ context.user.region }}" class="form-control" readonly>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="structure">Votre structure locale d'activité</label>
+                <input name="sla" type="text" value="{{ context.user.sla }}" class="form-control" readonly>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="lieu">Le lieu de votre APL</label>
+                <input type="text" class="form-control" name="lieu" maxlength="50" required>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="dateApl">Date de l'APL</label>
+                <input type="Date" class="form-control" name="dateapl" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="nbPresent">Nombre de personnes présentes</label>
+                <input type="number" class="form-control" name="nbpresent" id="nbPresent" required maxlength="3" size="3">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="nbVotants">Nombre de votants</label>
+                <input type="number" class="form-control" name="nbvotant" required size="3">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="representantNational">Représentant de l'échelon National</label>
+                <input type="text" class="form-control" name="representantNational" required maxlength="50">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="representantNational">Représentant de l'échelon Régional</label>
+                <input type="text" class="form-control" name="representantregional" required maxlength="50">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Vote du rapport </h4>
+                <hr>
+                <span class="col-sm-2">
+                    <label for="votePour" class="text-success">Pour
+                        <i class="fas fa-check"></i>
+                    </label>
+                    <input type="text" name="votepour" maxlength="3" size="3" required>
+                </span>
+                <span class="col-sm-2">
+                    <label for="voteContre" class="text-danger">Contre
+                        <i class="fas fa-times"></i>
+                    </label>
+                    <input type="text" name="votecontre" maxlength="3" size="3" required>
+                </span>
+                <span class="col-sm-2">
+                    <label for="voteAbstention" class="text-warning">Abstention
+                        <i class="fas fa-exclamation"></i>
+                    </label>
+                    <input type="text" name="voteabstention" maxlength="3" size="3" required>
+                </span>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Point financier</h4>
+                <hr>
+                <span class="col-sm-2">
+                    <label>Budget présenté ?</label>
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="presentationbudget" value="True">Oui &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="presentationbudget" value="False">Non
+                </span>
+                <span class="col-sm-3">
+                    <label for="pointFinancier">Résultat exercice :</label>
+                    <input type="text" name="pointfinancier" size="5" maxlength="5">
+                    <i class="fa fa-euro-sign"></i>
+                </span>
+            </div>
+        </div>
+        <hr>
+        <h4>Equipe de gestion</h4>
+        <div class="row">
+            <table class="table table-sm table-bordered">
+                <thead class="thead-light">
+                    <th>Fonction</th>
+                    <th>Code adherent</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Tel</th>
+                    <th>Mail</th>
+                    <th>Adresse</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>RESLA</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" name="coderesla" required size="5" maxlength="5">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" name="nomresla" required size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="prenomresla" required size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="tel" name="telresla" required size="10" maxlength="10" pattern="^0\d{9}">
+                        </td>
+                        <td>
+                            <input type="email" name="mailresla" required size="10" maxlength="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                        </td>
+                        <td>
+                            <input type="text" name="adresseresla" required size="10" maxlength="100">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TRESLA</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" name="codetresla" required size="5" maxlength="5">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td>
+                            <input type="text" name="nomtresla" required size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="prenomtresla" required size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="tel" name="teltresla" required size="10" maxlength="10" pattern="^0\d{9}">
+                        </td>
+                        <td>
+                            <input type="email" name="mailtresla" required size="10" maxlength="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                        </td>
+                        <td>
+                            <input type="text" name="adressetresla" required size="10" maxlength="100">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Délégué AG</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" name="codedelegueag" required size="5" maxlength="5">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td>
+                            <input type="text" name="nomdelegueag" required size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="prenomdelegueag" required size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="tel" name="teldelegueag" required size="10" maxlength="50" pattern="^0\d{9}">
+                        </td>
+                        <td>
+                            <input type="email" name="maildelegueag" required size="10" maxlength="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                        </td>
+                        <td>
+                            <input type="text" name="adressedelegueag" required size="10" maxlength="100">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Suppléant Délégué AG</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" name="codesuppdelegueag" required size="5" maxlength="5">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" name="nomsuppdelegueag" required size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="prenomsuppdelegueag" required size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="tel" name="telsuppdelegueag" required size="10" maxlength="10" pattern="^0\d{9}">
+                        </td>
+                        <td>
+                            <input type="email" name="mailsuppdelegueag" required size="10" maxlength="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                        </td>
+                        <td>
+                            <input type="text" name="adressesuppdelegueag" required size="10" maxlength="100">
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+        <hr>
+        <h4>Equipe d'animation</h4>
+        <div class="row">
+            <table class="table table-sm table-bordered" id="animationteam">
+                <thead class="thead-light">
+                    <th>Code adherent</th>
+                    <th>Fonction</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Tel</th>
+                    <th>Mail</th>
+                    <th>Adresse</th>
+                    <th>Edition</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" id="codeanimation" required size="5" maxlength="5">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" id="fonction" required size="10" maxlength="10">
+                        </td>
+                        <td>
+                            <input type="text" id="nom" required size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" id="prenom" required size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="tel" id="tel" required size="10" maxlength="10" pattern="^0\d{9}">
+                        </td>
+                        <td>
+                            <input type="email" id="mail" required size="10" maxlength="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                        </td>
+                        <td>
+                            <input type="text" id="adresse" required size="10" maxlength="100">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="saveteammember()">
+                                <i class="fa fa-save fa-sm"></i>
+                            </button>
+                            <button type="button" class="btn btn-success btn-sm">
+                                <i class="fa fa-recycle fa-sm"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
+            </span>
+            Veuillez décrire succinctement le déroulement de votre APL
+        </div>
+        <div class="row">
+            <label for="">Commentaires</label>
+            <textarea name="comments" id="" cols="30" rows="5" class="form-control widgEditor" required></textarea>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="">Signataire compte rendu</label>
+                <input type="text" name="signataire" class="form-control equipe" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-md-4 col-md-6 ">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Envoyer
+                </button>
+                <button type="reset" class="btn btn-success">
+                    <i class="fas fa-recycle"></i> Effacer
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+<div style="height:100px;"></div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function saveteammember(){
+            {#if($("#crform").valid()){#}
+                data={
+                    "csrfmiddlewaretoken": $("input[name='csrfmiddlewaretoken']").val(),
+                    "codeanimation":$("#codeanimation").val(),
+                    "fonction":$("#fonction").val().toUpperCase(),
+                    "nom":$("#nom").val().toUpperCase(),
+                    "prenom":$("#prenom").val().toUpperCase(),
+                    "tel":$("#tel").val(),
+                    "mail":$("#mail").val().toUpperCase(),
+                    "adresse":$("#adresse").val().toUpperCase(),
+                };
+                $.post("{% url "saveanimationteam"  %}",data,function(answer){
+                    if(answer.answer){
+                        $("#animationteam").append("<tr id='row"+ answer.teammemberid +"'><td>"+ data.codeanimation
+                            +"</td><td>"+data.fonction
+                            +"</td><td>"+data.nom
+                            +"</td><td>"+ data.prenom
+                            +"</td><td>"+ data.tel
+                            +"</td><td>"+ data.mail
+                            +"</td><td>"+ data.adresse
+                            +"</td><td><button type='button' class='btn btn-danger' onclick='deleteteammember("+ answer.teammemberid +","+answer.nominationid +")'><i class=\"fas fa-trash\"></i></button></tr>")
+                    }
+                });
+
+            {#}else{#}
+            {#    alert("svp, vérifier que tous les champs requis sont bien renseignés!");#}
+            {#}#}
+
+        }
+        function deleteteammember(teammemberid,nominationid){
+                $.post("{% url "removenomination"  %}",
+                    {"csrfmiddlewaretoken": $("input[name='csrfmiddlewaretoken']").val(),
+                    "teammemberid":teammemberid,
+                    "nominationid":nominationid
+                    },
+                    function(answer){
+                    if(answer.answer){
+                        $("#row"+teammemberid).remove();
+                    }
+                });
+        }
+    </script>
+{% endblock %}

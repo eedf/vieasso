@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <div style="height:30px;"></div>
+        <div class="alert alert-info">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
+            </span>
+            Veuillez renseigner les
+            informations nécessaires à votre nomination
+        </div>
+        <form action="/nomination/" method="POST">
+            <div class="row">
+                <div class="col">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.login.label_tag }} {{ form.login }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.name.label_tag }} {{ form.name }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.region.label_tag }} {{ form.region }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.sla.label_tag }} {{ form.sla }}
+                         <small id="slaHelp" class="form-text text-muted">Mettez REGION si vous souhaiter rédiger le
+                            compte rendu d'un congrés régional
+                        </small>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        {{ form.mail.label_tag }} {{ form.mail }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.tel.label_tag }} {{ form.tel }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.adresse.label_tag }} {{ form.adresse }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.codepostal.label_tag }} {{ form.codepostal }}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-check"></i> Envoyer
+            </button>
+            <button type="reset" class="btn btn-primary">
+                <i class="fas fa-recycle"></i> Effacer
+            </button>
+        </form>
+
+        <div style="height:30px;"></div>
+        <div class="alert alert-success " {% if not error %} hidden {% endif %}>
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+            </span>
+            &nbsp;{{ error }}
+        </div>
+    </div>
+
+{% endblock %}

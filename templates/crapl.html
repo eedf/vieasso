@@ -1,0 +1,302 @@
+{% extends "layout.html" %} {% block content %} {% load static %}
+
+<form action="/editcr/" method="POST">
+{% csrf_token%}
+    <div class="container">
+        <div style="height:30px;"></div>
+        <div class="alert alert-info row">Veuillez renseigner les informations correspondantes aux cases ci dessous</div>
+
+        <h4>Informations d'ordre général</h4>
+        <hr>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="region">Votre région</label>
+                <input name="region" type="text" value="{{ context.user.region }}" class="form-control" readonly>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="structure">Votre structure locale d'activité</label>
+                <input name="sla" type="text" value="{{ context.user.sla }}" class="form-control" readonly>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="lieu">Le lieu de votre APL</label>
+                <input type="text" class="form-control" name="lieu" maxlength="50" require>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="dateApl">Date de l'APL</label>
+                <input type="Date" class="form-control" name="dateapl" require>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="nbPresent">Nombre de personnes présentes</label>
+                <input type="number" class="form-control" name="nbpresent" id="nbPresent" require maxlength="3" size="3">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="nbVotants">Nombre de votants</label>
+                <input type="number" class="form-control" name="nbvotant" require size="3">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="representantNational">Représentant de l'échelon National</label>
+                <input type="text" class="form-control" name="representantNational" require maxlength="50">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="representantNational">Représentant de l'échelon Régional</label>
+                <input type="text" class="form-control" name="representantregional" require maxlength="50">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Vote du rapport </h4>
+                <hr>
+                <span class="col-sm-2">
+                    <label for="votePour" class="text-success">Pour
+                        <i class="fas fa-check"></i>
+                    </label>
+                    <input type="text" name="votepour" maxlength="3" size="3" require>
+                </span>
+                <span class="col-sm-2">
+                    <label for="voteContre" class="text-danger">Contre
+                        <i class="fas fa-times"></i>
+                    </label>
+                    <input type="text" name="votecontre" maxlength="3" size="3" require>
+                </span>
+                <span class="col-sm-2">
+                    <label for="voteAbstention" class="text-warning">Abstention
+                        <i class="fas fa-exclamation"></i>
+                    </label>
+                    <input type="text" name="voteabstention" maxlength="3" size="3" require>
+                </span>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Point financier</h4>
+                <hr>
+                <span class="col-sm-2">
+                    <label>Budget présenté ?</label>
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="presentationbudget" value="True">Oui &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="presentationbudget" value="False">Non
+                </span>
+                <span class="col-sm-3">
+                    <label for="pointFinancier">Résultat exercice :</label>
+                    <input type="text" name="pointfinancier" size="5" maxlength="5">
+                    <i class="fa fa-euro-sign"></i>
+                </span>
+            </div>
+        </div>
+        <hr>
+        <h4>Equipe de gestion</h4>
+        <div class="row">
+            <table class="table table-sm table-bordered">
+                <thead class="thead-light">
+                    <th>Fonction</th>
+                    <th>Code adherent</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Tel</th>
+                    <th>Mail</th>
+                    <th>Adresse</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>RESLA</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" name="coderesla" require size="5" maxlength="5">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" name="nomresla" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="prenomresla" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="telresla" require size="10" maxlength="10">
+                        </td>
+                        <td>
+                            <input type="text" name="mailresla" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="adresseresla" require size="10" maxlength="100">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TRESLA</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" name="codetresla" require size="5" maxlength="5">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td>
+                            <input type="text" name="nomtresla" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="prenomtresla" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="teltresla" require size="10" maxlength="10">
+                        </td>
+                        <td>
+                            <input type="text" name="mailtresla" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="adressetresla" require size="10" maxlength="100">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Délégué AG</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" name="codedelegueag" require size="5" maxlength="5">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td>
+                            <input type="text" name="nomdelegueag" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="prenomdelegueag" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="teldelegueag" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="maildelegueag" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="adressedelegueag" require size="10" maxlength="100">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Suppléant Délégué AG</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" name="codesuppdelegueag" require size="5" maxlength="5">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" name="nomsuppdelegueag" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="prenomsuppdelegueag" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="telsuppdelegueag" require size="10" maxlength="10">
+                        </td>
+                        <td>
+                            <input type="text" name="mailsuppdelegueag" require size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="adressesuppdelegueag" require size="10" maxlength="100">
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+        <hr>
+        <h4>Equipe d'animation</h4>
+        <div class="row">
+            <table class="table table-sm table-bordered">
+                <thead class="thead-light">
+                    <th>Code adherent</th>
+                    <th>Fonction</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Tel</th>
+                    <th>Mail</th>
+                    <th>Adresse</th>
+                    <th>Edition</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" name="codeanimation0" require size="5" maxlength="5">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" name="fonction" id="" size="10" maxlength="10">
+                        </td>
+                        <td>
+                            <input type="text" name="nom" id="" size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="prenom" id="" size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="tel" id="" size="10" maxlength="10">
+                        </td>
+                        <td>
+                            <input type="text" name="mail" id="" size="10" maxlength="50">
+                        </td>
+                        <td>
+                            <input type="text" name="adresse" id="" size="10" maxlength="100">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm">
+                                <i class="fa fa-save fa-sm"></i>
+                            </button>
+                            <button type="button" class="btn btn-success btn-sm">
+                                <i class="fa fa-recycle fa-sm"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning col-md-12">
+            Veuillez décrire succinctement le déroulement de votre APL
+        </div>
+        <div class="row">
+            <label for="">Commentaires</label>
+            <textarea name="comments" id="" cols="30" rows="5" class="form-control widgEditor" require></textarea>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="">Signataire compte rendu</label>
+                <input type="text" name="signataire" class="form-control equipe" require>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-md-4 col-md-6 ">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Envoyer
+                </button>
+                <button type="reset" class="btn btn-success">
+                    <i class="fas fa-recycle"></i> Effacer
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+<div style="height:100px;"></div>
+{% endblock %}

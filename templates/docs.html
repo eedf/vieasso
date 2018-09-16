@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <h2 class="page-header">Liste des documents</h2>
+        <div class="list-group">
+            <a href="{% static '/docs/fonctionnement_democratique_des_eedf.pdf' %}"
+               class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Le fonctionnement démocratique des EEDF</h5>
+                    <small>il y a 3 jours</small>
+                </div>
+                <p class="mb-1">Comprendre le fonctionement des EEDF et decripter les différentes instances dont se
+                    compose
+                    l'association .</p>
+                <small>Télécharger le document <span class="badge badge-info badge-pill">Nouveau</span>
+                </small>
+            </a>
+            <a href="{% static '/docs/organiser-une-assemblee-pleniere-locale-(APL).ppt' %}"
+               class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Organiser une Assemblée pléniaire locale</h5>
+                    <small class="text-muted">il y a 3 jours</small>
+                </div>
+                <p class="mb-1">Vous souhaiter créer une structure locale d'activité, ou renouveler la légitimité de la
+                    votre, il faut commencer par mettre en place une APL</p>
+                <small class="text-muted">Télécharger le document <span
+                        class="badge badge-info badge-pill">Nouveau</span>
+                </small>
+            </a>
+            <a href="{% static '/docs/Prépa et conduite APL national 2017.doc' %}"
+               class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Préparer et conduire une APL</h5>
+                    <small class="text-muted">il y a 3 jours</small>
+                </div>
+                <p class="mb-1">Ce guide vous permet de préparer votre APL et la conduire efficacement comme un
+                    chef.</p>
+                <small class="text-muted">
+                    Télécharger le document <span class="badge badge-info badge-pill">Nouveau</span>
+                </small>
+            </a>
+        </div>
+    </div>
+{% endblock %}
