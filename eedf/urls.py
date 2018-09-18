@@ -34,5 +34,5 @@ urlpatterns = [
     path('saveanimationteam/', views.saveanimationteam, name='saveanimationteam'),
     path('removenomination/', views.removenomination, name='removenomination'),
     path('', views.index, name='index'),
-    re_path(r'.', views.index, name="any"),
+#    re_path(r'.', views.index, name="any"),
 ]

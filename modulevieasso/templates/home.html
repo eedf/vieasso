@@ -83,7 +83,7 @@
                 </a>
             </div>
 
-            {% if context.user.role == "SUPERADMIN" %}
+            {% if context.user.role == "SUPERADMIN" or context.user.role == "ADMIN"%}
                 <div class="col-md-2 text-center">
                     <a href="{% url 'listnomination' %}">
                         Valider les nominations

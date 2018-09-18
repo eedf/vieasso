@@ -12,15 +12,6 @@ class Fonction(models.Model):
         nomfonction=models.CharField(max_length=100)
 
 
-""" pour RESLA TRESLA DAG ET SUPPDG """
-class Nomination(models.Model):
-        dateNomination= models.DateTimeField('datenomination')
-        fonction = models.ForeignKey(Fonction,on_delete=models.SET_NULL,null=True)
-        nominant = models.ForeignKey('Individu',on_delete=models.SET_NULL,null=True,related_name='nominant')
-        commentaire = models.CharField(max_length=200)
-        structure=models.ForeignKey(Structure, on_delete=models.SET_NULL,null=True)
-
-
 class Individu(models.Model):
 	codeadherent=models.CharField(max_length=15,null=True)
 	civilite=models.CharField(max_length=50,null=True)
@@ -34,12 +25,22 @@ class Individu(models.Model):
 	nomination=models.ManyToManyField(Nomination,related_name="nomination_individu")
 
 
+""" pour RESLA TRESLA DAG ET SUPPDG """
+class Nomination(models.Model):
+	dateNomination= models.DateTimeField('datenomination')
+	fonction = models.ForeignKey(Fonction,on_delete=models.SET_NULL,null=True)
+	nominant = models.ForeignKey(Individu,on_delete=models.SET_NULL,null=True,related_name='nominant')
+	commentaire = models.CharField(max_length=200)
+	structure=models.ForeignKey(Structure, on_delete=models.SET_NULL,null=True)
+
+
 """ Pour la rédaction d'un compte rendu"""
 class DemandeNominationRedaction(models.Model):
 	dateDemande=models.DateTimeField('datenomination', null=True)
 	dateReponse=models.DateTimeField('datereponse', null=True)
 	structure=models.ForeignKey(Structure, on_delete=models.SET_NULL,null=True)
 	reponseAdmin=models.CharField(max_length=50,null=True)
+
 
 class Region(models.Model):
 	nom=models.CharField(max_length=15)
@@ -55,7 +56,6 @@ class User(models.Model):
 	codepostal=models.CharField(max_length=50, null=True)
 	tel=models.CharField(max_length=50, null=True)
 	nomination=models.ForeignKey(DemandeNominationRedaction, on_delete=models.SET_NULL, null=True)
-
 
 
 class CompteRendu(models.Model):

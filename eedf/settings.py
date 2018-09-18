@@ -73,6 +73,8 @@ WSGI_APPLICATION = 'eedf.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+dbuser = os.environ.get('DB_USER')
+userpassword = os.environ.get('DB_USER_PASSWORD')
 
 DATABASES = {
     'sqlite': {
@@ -82,8 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'vieasso',
-        'USER': 'dbuser',
-        'PASSWORD': 'userpassword',
+        'USER': dbuser,
+        'PASSWORD': userpassword,
         'HOST': 'localhost',
     }
 

@@ -391,7 +391,6 @@ def listcr(request):
                        "signatairecr": c.signataireCr,
                        "corpscr": c.corpsCr,
                        })
-    print(listcr)
     return render(request, "listcr.html", {'context': context, 'listcr': listcr});
 
 
@@ -458,12 +457,13 @@ def nominationredacteur(request):
                     dateDemande=datetime.now(), structure=sla)
                 demande.save()
                 # affectation de la demande à l'utilisateur et mise à jour
-                user.nomination = demande
+                user.nomination=demande
                 user.adresse = adresse
                 user.tel = tel
                 user.codepostal = codepostal
                 user.mail = mail
                 user.save()
+                print('userobject = ',user)
                 message = '{} Votre demande de nomination a été prise en considération'.format(name)
                 return render(request, "demandenomination.html",
                               {'error': message, 'form': form, 'context': context})
@@ -503,8 +503,11 @@ def listnomination(request):
     listdemandants = []
     for d in demandants:
         datereponse=""
-        if d.nomination and d.nomination.reponseAdmin:
+        datedemande=""
+        if d.nomination.reponseAdmin:
             datereponse=d.nomination.dateReponse.strftime("%d/%m/%Y")
+        if d.nomination.dateDemande:
+            datedemande=d.nomination.dateDemande.strftime("%d/%m/%Y")
         listdemandants.append({'id': d.id,
                      'login': d.login,
                      'name': d.name,
@@ -512,7 +515,7 @@ def listnomination(request):
                      'adresse': d.adresse,
                      'tel': d.tel,
                      'mail': d.mail,
-                     'datedemande': d.nomination.dateDemande.strftime("%d/%m/%Y"),
+                     'datedemande': datedemande,
                      'datereponse':datereponse,
                      'sla': d.nomination.structure.nomstructure,
                      'region': d.nomination.structure.region,
