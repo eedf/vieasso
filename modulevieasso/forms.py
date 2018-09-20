@@ -118,7 +118,7 @@ class NominationForm(forms.Form):
                 'class': 'form-control',
                 'type': 'tel',
                 'title': 'Entrer votre structure',
-                'placeholder': 'EX : PARIS 3',
+                'placeholder': 'EX : 0649494949',
                 'pattern':'^0\d{9}'
             },
         )
