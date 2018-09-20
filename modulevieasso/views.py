@@ -327,7 +327,7 @@ def docs(request):
     context = request.session.get('context')
     if context is None:
         return redirect("/", permanent=True)
-    return render(request, "docs.html", {'context': context})
+    return render(request, "documentation.html", {'context': context})
 
 
 """
