@@ -1,5 +1,4 @@
-
 env-var 
-__pycache__
-p3
-migrations
+__pycache__/
+p3/
+migrations/
